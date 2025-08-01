@@ -1,0 +1,39 @@
+import math
+
+def find_max_proper_irreducible_fraction(n):
+    """
+    Finds the largest proper irreducible fraction a/b such that:
+    - a + b == n
+    - a < b (proper fraction)
+    - gcd(a, b) == 1 (irreducible)
+
+    Parameters:
+        n (int): The total sum of numerator and denominator
+
+    Returns:
+        str: The fraction in the form 'a/b'
+    """
+    best_num = 0
+    best_den = 1
+
+    for a in range(1, n):
+        b = n - a
+        if a < b and math.gcd(a, b) == 1:
+            if a / b > best_num / best_den:
+                best_num, best_den = a, b
+
+    return f"{best_num}/{best_den}"
+
+def main():
+    try:
+        n = int(input("Enter a natural number n: "))
+        if n <= 1:
+            print("n must be greater than 1.")
+            return
+        result = find_max_proper_irreducible_fraction(n)
+        print(f"The largest proper irreducible fraction with sum {n} is: {result}")
+    except ValueError:
+        print("Invalid input. Please enter a natural number.")
+
+if __name__ == "__main__":
+    main()
